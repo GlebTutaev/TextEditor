@@ -1,0 +1,65 @@
+﻿<Window x:Class="PZ12.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PZ12"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <StatusBar Background="DarkGray" DockPanel.Dock="Bottom" Height="11"   />
+        <StackPanel DockPanel.Dock="Top" Height="42">
+            <Menu Height="20">
+                <MenuItem x:Name="File" Header="File">
+                    <MenuItem x:Name="Open" Header="Open"/>
+                    <MenuItem x:Name="New" Header="New" Click="New_Click"/>
+                    <MenuItem x:Name="Save" Header="Save"/>
+                </MenuItem>
+                <!-->
+                <!-->   
+                <MenuItem x:Name="Sample" Header="Sample">
+                    <MenuItem x:Name="Create" Header="Create"/>
+                    <MenuItem x:Name="Load" Header="Load"/>
+                    <MenuItem x:Name="Load1" Header="Load1"/>
+
+                </MenuItem>
+                <!-->
+                <!-->
+                <MenuItem x:Name="About" Header="About">
+                    <MenuItem x:Name="AboutP" Header="About program"/>
+                    <MenuItem x:Name="AboutA" Header="About authors"/>
+                </MenuItem>
+            </Menu>
+            <WrapPanel Height="24">
+                <Button x:Name="btnB" Width="20" Height="23">
+                    <Image Source="Res/b.png"/>
+                </Button>
+                <Button x:Name="btnI" Width="20" Height="23">
+                    <Image Source="Res/i.png"/>
+                </Button>
+                <Button x:Name="btnU" Width="20" Height="23">
+                    <Image Source="Res/u.png"/>
+                </Button>
+
+            </WrapPanel>
+        </StackPanel>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Background="White" Grid.Column="1" 
+                     SpellCheck.IsEnabled="True" AcceptsTab="True"
+                     AcceptsReturn="True" />
+
+            <ListBox SelectionMode="Multiple" Background="Wheat" Grid.Column="0" Name="Files">
+                
+            </ListBox>
+            
+        </Grid>
+        
+        
+
+    </DockPanel>
+</Window>
