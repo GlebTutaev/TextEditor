@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
-        <StatusBar Background="DarkGray" DockPanel.Dock="Bottom" Height="11">
+        <StatusBar Background="DarkGray" DockPanel.Dock="Bottom" Height="20">
             <StatusBarItem>
                 <TextBlock Name="CursorPosition"/>
             </StatusBarItem>

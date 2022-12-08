@@ -28,7 +28,7 @@ namespace PZ12
     {
         private object temp;
         public int Start { get; set; }
-        public static string path = Convert.ToString(@"D:\VsProjects\PZ12\PZ12\data/");
+        public static string path = $@"{AppDomain.CurrentDomain.BaseDirectory}\data/";
         public MainWindow()
         {
             InitializeComponent();
@@ -37,18 +37,18 @@ namespace PZ12
             Files.ItemsSource = files;
         }
 
-        public void OpenFile(string filename)
+        public void OpenFile(string file)
         {
             try
             {
-                string fl = $"{path}{filename}";
-                TextRange range = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
+                string fl = $"{path}{file}";
+                TextRange tr = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
                 using (var fs = File.OpenRead(fl))
                 {
                    if (fl.ToLower().EndsWith(".txt"))
-                        range.Load(fs, System.Windows.DataFormats.Text);
+                        tr.Load(fs, System.Windows.DataFormats.Text);
                     else
-                        range.Load(fs, System.Windows.DataFormats.Xaml);
+                        tr.Load(fs, System.Windows.DataFormats.Xaml);
                     fs.Close();
                 }
             }
@@ -58,13 +58,13 @@ namespace PZ12
             }
         }
 
-        public void CreateFile(string filename)
+        public void CreateFile(string file)
         {
             try
             {
-                string fl = $"{path}{filename}.txt";
+                string s = $"{path}{file}.txt";
                 TextRange range = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
-                using (var fs = File.Create(fl))
+                using (var fs = File.Create(s))
                 {
                     range.Save(fs, DataFormats.Text);
                     fs.Close();
@@ -72,8 +72,8 @@ namespace PZ12
                 var dir = new DirectoryInfo(path);
                 FileInfo[] files = dir.GetFiles("*.*");
                 Files.ItemsSource = files;
-                Files.DisplayMemberPath = "Name";
-                MessageBox.Show($"Файл {filename} был создан!\n{fl}");
+                Files.DisplayMemberPath = "Имя";
+                MessageBox.Show($"Файл {file} создан!\n{s}");
             }
             catch (Exception e)
             {
@@ -85,12 +85,12 @@ namespace PZ12
         {
             try
             {
-                string fl = $"{path}{filename}";
+                string s = $"{path}{filename}";
                 TextRange range = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
-                using (FileStream fs = new FileStream(fl, FileMode.OpenOrCreate))
+                using (FileStream f = new FileStream(s, FileMode.OpenOrCreate))
                 {
-                    range.Save(fs, DataFormats.Rtf);
-                    fs.Close();
+                    range.Save(f, DataFormats.Text);
+                    f.Close();
                 }
 
             }
@@ -106,7 +106,7 @@ namespace PZ12
             {
                 string fl = $"{path}{filename}";
                 File.Delete(fl);
-                var dir = new System.IO.DirectoryInfo(path);
+                var dir = new DirectoryInfo(path);
                 FileInfo[] files = dir.GetFiles("*.*");
                 Files.ItemsSource = files;
             }
@@ -118,12 +118,12 @@ namespace PZ12
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            string filename;
-            Create createFileWindow = new Create();
-            if (createFileWindow.ShowDialog() == true)
+            string s;
+            Create create = new Create();
+            if (create.ShowDialog() == true)
             {
-                filename = createFileWindow.FileName;
-                CreateFile(filename);
+                s = create.FileName;
+                CreateFile(s);
             }
         }
         private void Save_Click(object sender, RoutedEventArgs e)
