@@ -7,13 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
-        <StatusBar Background="DarkGray" DockPanel.Dock="Bottom" Height="11"   />
+        <StatusBar Background="DarkGray" DockPanel.Dock="Bottom" Height="11">
+            <StatusBarItem>
+                <TextBlock Name="CursorPosition"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Name="ChangedText"/>
+            </StatusBarItem>
+        </StatusBar>
         <StackPanel DockPanel.Dock="Top" Height="42">
-            <Menu Height="20">
-                <MenuItem x:Name="File" Header="File">
-                    <MenuItem x:Name="Open" Header="Open"/>
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem x:Name="Open" Header="Open" Click="Open_Click"/>
                     <MenuItem x:Name="New" Header="New" Click="New_Click"/>
-                    <MenuItem x:Name="Save" Header="Save"/>
+                    <MenuItem x:Name="Save" Header="Save" Click="Save_Click"/>
+                    <MenuItem x:Name="Delete" Header="Delete" Click="Delete_Click"/>
                 </MenuItem>
                 <!-->
                 <!-->   
@@ -31,16 +39,15 @@
                 </MenuItem>
             </Menu>
             <WrapPanel Height="24">
-                <Button x:Name="btnB" Width="20" Height="23">
+                <ToggleButton Command="EditingCommands.ToggleBold" Name="btnB" Width="20" Height="23">
                     <Image Source="Res/b.png"/>
-                </Button>
-                <Button x:Name="btnI" Width="20" Height="23">
+                </ToggleButton>
+                <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnI" Width="20" Height="23">
                     <Image Source="Res/i.png"/>
-                </Button>
-                <Button x:Name="btnU" Width="20" Height="23">
+                </ToggleButton>
+                <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnU" Width="20" Height="23">
                     <Image Source="Res/u.png"/>
-                </Button>
-
+                </ToggleButton>
             </WrapPanel>
         </StackPanel>
         <Grid >
@@ -49,12 +56,13 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             
-            <TextBox Background="White" Grid.Column="1" 
+            <RichTextBox x:Name="TextEditor" Background="White" Grid.Column="1" 
                      SpellCheck.IsEnabled="True" AcceptsTab="True"
-                     AcceptsReturn="True" />
+                     AcceptsReturn="True" SelectionChanged="SelectionChanged"
+                     KeyDown="KeyDown"/>
 
-            <ListBox SelectionMode="Multiple" Background="Wheat" Grid.Column="0" Name="Files">
-                
+            <ListBox SelectionMode="Multiple" Background="Wheat" Grid.Column="0" Name="Files" >
+
             </ListBox>
             
         </Grid>

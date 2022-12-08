@@ -8,6 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Res\b.png" />
+    <None Remove="Res\done.png" />
+    <None Remove="Res\i.png" />
+    <None Remove="Res\remove.png" />
+    <None Remove="Res\save.png" />
+    <None Remove="Res\u.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Res\b.png" />
+    <Resource Include="Res\done.png" />
+    <Resource Include="Res\i.png" />
+    <Resource Include="Res\remove.png" />
+    <Resource Include="Res\save.png" />
+    <Resource Include="Res\u.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="data\" />
   </ItemGroup>
 

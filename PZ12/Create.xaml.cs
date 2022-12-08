@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 
 namespace PZ12
 {
@@ -25,11 +26,11 @@ namespace PZ12
             InitializeComponent();
         }
 
+
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             
-
         }
 
         public string FileName
