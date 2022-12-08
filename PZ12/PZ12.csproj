@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="data\**" />
+    <EmbeddedResource Remove="data\**" />
+    <None Remove="data\**" />
+    <Page Remove="data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Res\b.png" />
     <None Remove="Res\done.png" />
     <None Remove="Res\i.png" />
@@ -23,10 +30,6 @@
     <Resource Include="Res\remove.png" />
     <Resource Include="Res\save.png" />
     <Resource Include="Res\u.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="data\" />
   </ItemGroup>
 
 </Project>
