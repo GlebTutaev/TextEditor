@@ -24,11 +24,14 @@ namespace PZ12
 {/// <summary>
  /// Логика взаимодействия для MainWindow.xaml
  /// </summary>
+
+ 
     public partial class MainWindow : Window
     {
         private object temp;
         public int Start { get; set; }
         public static string path = $@"{AppDomain.CurrentDomain.BaseDirectory}\data/";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,15 +44,15 @@ namespace PZ12
         {
             try
             {
-                string fl = $"{path}{file}";
+                string s = $"{file}";
                 TextRange tr = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
-                using (var fs = File.OpenRead(fl))
+                using (var a = File.OpenRead(s))
                 {
-                   if (fl.ToLower().EndsWith(".txt"))
-                        tr.Load(fs, System.Windows.DataFormats.Text);
+                   if (s.ToLower().EndsWith(".txt"))
+                        tr.Load(a, System.Windows.DataFormats.Text);
                     else
-                        tr.Load(fs, System.Windows.DataFormats.Xaml);
-                    fs.Close();
+                        tr.Load(a, System.Windows.DataFormats.Xaml);
+                    a.Close();
                 }
             }
             catch (Exception e)
@@ -58,16 +61,16 @@ namespace PZ12
             }
         }
 
-        public void CreateFile(string file)
+        public void CreateFile(string file) // Я не знаю по какой имя файло невидимое, но они есть в списке(только при создании =) )
         {
             try
             {
                 string s = $"{path}{file}.txt";
                 TextRange range = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
-                using (var fs = File.Create(s))
+                using (var a = File.Create(s))
                 {
-                    range.Save(fs, DataFormats.Text);
-                    fs.Close();
+                    range.Save(a, DataFormats.Text);
+                    a.Close();
                 }
                 var dir = new DirectoryInfo(path);
                 FileInfo[] files = dir.GetFiles("*.*");
@@ -85,7 +88,7 @@ namespace PZ12
         {
             try
             {
-                string s = $"{path}{filename}";
+                string s = $"{filename}";
                 TextRange range = new TextRange(TextEditor.Document.ContentStart, TextEditor.Document.ContentEnd);
                 using (FileStream f = new FileStream(s, FileMode.OpenOrCreate))
                 {
@@ -104,8 +107,8 @@ namespace PZ12
         {
             try
             {
-                string fl = $"{path}{filename}";
-                File.Delete(fl);
+                string s = $"{filename}";
+                File.Delete(s);
                 var dir = new DirectoryInfo(path);
                 FileInfo[] files = dir.GetFiles("*.*");
                 Files.ItemsSource = files;
@@ -118,13 +121,20 @@ namespace PZ12
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            string s;
+            string filename;
             Create create = new Create();
             if (create.ShowDialog() == true)
             {
-                s = create.FileName;
-                CreateFile(s);
+                filename = create.FileName;
+                CreateFile(filename);
             }
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            string s = Files.SelectedItem.ToString();
+
+            OpenFile(s);
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -170,10 +180,7 @@ namespace PZ12
             btnU.IsChecked = (temp != DependencyProperty.UnsetValue) && (temp.Equals(TextDecorations.Underline));
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
     }
 }
